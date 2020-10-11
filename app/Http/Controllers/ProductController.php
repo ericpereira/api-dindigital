@@ -87,9 +87,9 @@ class ProductController extends Controller
             return responder()->success()->respond();
         } catch (\Throwable $th) {
             if(env('APP_DEBUG') == 'true'){
-                return responder()->error(400, 'Erro ao inserir produto. '.$th->getMessage())->respond();
+                return responder()->error(400, 'Erro ao inserir produto '.$th->getMessage())->respond();
             }else{
-                return responder()->error(400, 'Erro ao inserir produto.')->respond();
+                return responder()->error(400, 'Erro ao inserir produto')->respond();
             }
         }
 
@@ -157,9 +157,9 @@ class ProductController extends Controller
             return responder()->success()->respond();
         } catch (\Throwable $th) {
             if(env('APP_DEBUG') == 'true'){
-                return responder()->error(400, 'Erro ao atualizar produto. '.$th->getMessage())->respond();
+                return responder()->error(400, 'Erro ao atualizar produto '.$th->getMessage())->respond();
             }else{
-                return responder()->error(400, 'Erro ao atualizar produto.')->respond();
+                return responder()->error(400, 'Erro ao atualizar produto')->respond();
             }
         }
     }
@@ -193,12 +193,29 @@ class ProductController extends Controller
             return responder()->success()->respond();
         } catch (\Throwable $th) {
             if(env('APP_DEBUG') == 'true'){
-                return responder()->error(400, 'Erro ao remover produto. '.$th->getMessage())->respond();
+                return responder()->error(400, 'Erro ao remover produto '.$th->getMessage())->respond();
             }else{
-                return responder()->error(400, 'Erro ao remover produto.')->respond();
+                return responder()->error(400, 'Erro ao remover produto')->respond();
             }$th;
         }
         
+        
+    }
+
+    /**
+     * get one product
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function last(){
+        $product = Product::orderBy('created_at', 'desc')->first();
+        if($product){
+            return responder()->success($product)->respond();
+        }else{
+            return responder()->error(400, 'Produto não encontrado')->respond();
+        }
         
     }
 }
