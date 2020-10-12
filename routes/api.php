@@ -40,7 +40,7 @@ Route::group([
   'middleware' => ['api', 'apiJwt'], ], function ($router) {
 
   Route::post('/store', [ProductController::class, 'store'])->name('products.store');
-  Route::post('/update', [ProductController::class, 'update'])->name('products.update');
+  Route::put('/update', [ProductController::class, 'update'])->name('products.update');
   Route::delete('/delete/{id}', [ProductController::class, 'delete'])->name('products.delete');
   Route::get('/list', [ProductController::class, 'index'])->name('products.list');
   Route::get('/last', [ProductController::class, 'last'])->name('products.last');
